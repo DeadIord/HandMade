@@ -1,0 +1,27 @@
+﻿@model HandMade.Models.Categories
+@{
+    ViewBag.Title = "Редактирование категории";
+}
+
+<form asp-action="EditCategories" asp-controller="Categories" asp-route-CategoriesId="@Model.CategoriesId">
+    <div class="form-group">
+        <label asp-for="NameOfTheCategories">Категория</label>
+        <input type="text" asp-for="NameOfTheCategories" placeholder="Категория" class="form-control" />
+        <span asp-validation-for="NameOfTheCategories" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ActiveCategories">Статус категории</label>
+        <select asp-for="ActiveCategories" class="form-control">
+            <option>Активная</option>
+            <option>Неактивная</option>
+        </select>
+        <span asp-validation-for="ActiveCategories" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-outline-primary">Создать</button>
+    <a asp-action="ListCategories" class="btn btn-outline-secondary">Отмена</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

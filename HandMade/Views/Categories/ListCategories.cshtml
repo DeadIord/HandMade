@@ -1,0 +1,50 @@
+﻿@model IEnumerable<HandMade.Models.Categories>
+@{
+    ViewBag.Title = "Категории";
+}
+
+@if (Model.Any())
+{
+
+    <a asp-action="AddCategories"
+   class="btn btn-outline-success mb-3" style="width:auto">
+        Добавить новую категорию
+    </a>
+
+    <div class="row flex-row flex-wrap">
+        @foreach (var Categories in Model)
+        {
+
+            <div class="col-md-4">
+                <div class="cmb-4 box-shadow">
+                    <div class="card-body" style="margin: 10px;">
+                        <h5 class="card-title">@Categories.NameOfTheCategories</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@Categories.ActiveCategories</h6>
+
+                        <form asp-action="Delete" asp-route-id="@Categories.CategoriesId" method="post">
+
+                            <a asp-action="EditCategories" asp-controller="Categories" asp-route-id="@Categories.CategoriesId" class="btn btn-outline-warning">Редактирование</a>
+                            <button type="submit" class="btn btn-outline-danger"
+                            onclick="return confirm('Вы уверены что хотите удалить данную услугу: @Categories.')">
+                                Удаление
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="jumbotron">
+        <h1 class="display-4">Категории отсутствуют!</h1>
+        <p class="lead">Добавить категорию - просто! Используйте кнопку ниже, чтобы добавить категорию.</p>
+        <hr class="my-4">
+        <p class="lead">
+            <a class="btn btn-outline-success" style="width:auto" asp-action="AddCategories">
+                Добавить  категорию
+            </a>
+        </p>
+    </div>
+}

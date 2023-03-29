@@ -1,0 +1,18 @@
+﻿@model IEnumerable<HandMade.Models.Products>
+    @{
+        ViewBag.Title = "Информация о заказе";
+    }
+
+    <div class="card">
+        <h5 class="card-header">Товары</h5>
+        <div class="card-body">
+            @foreach (var product in Model)
+            {
+            <h7 class="card-text">@product.NameOfTheProduct - @product.Price Р. за шт. </h7>
+            }
+        <dib style="display: flex;">
+                <a asp-action="OrdersView" class="btn btn-primary">Назад</a>
+            </dib>
+           
+        </div>
+    </div>
