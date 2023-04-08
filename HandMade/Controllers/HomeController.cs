@@ -23,6 +23,11 @@ namespace HandMade.Controllers
             db = context;
         }
 
+        public async Task<IActionResult> Main()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> IndexAsync(string searchString, string filter)
         {
 

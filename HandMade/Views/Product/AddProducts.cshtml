@@ -5,6 +5,7 @@
     var a = TempData["Categories"];
 }
 
+<div class="row card" style="padding: 20px 20px 20px 20px;">
 <form asp-action="AddProducts" method="post" enctype="multipart/form-data" asp-controller="Product">
     <div class="form-row">
         <div class="form-group col-md-6">
@@ -61,7 +62,7 @@
     <button type="submit" class="btn btn-outline-primary">Создать</button>
     <a asp-action="ListProduct" class="btn btn-outline-secondary">Отмена</a>
 </form>
-
+</div>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

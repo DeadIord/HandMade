@@ -4,30 +4,32 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h1>Роли пользователей</h1>
-<div class="card-tableNew">
-    <table class="table table-striped">
-        <thead>
-            <tr>
+<div class="card" style="padding: 10px 10px 10px 10px">
+    <h1>Роли пользователей</h1>
+        <div class="card-tableNew">
+        <table class="table table-striped">
+            <thead>
+                <tr>
               
-                <th>Email</th>
-                <th>Роль</th>
-                <th>Действие</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var user in Model)
-            {
-            <tr>
+                    <th>Email</th>
+                    <th>Роль</th>
+                    <th>Действие</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                <tr>
  
-                <td>@user.Email</td>
-                <td>@string.Join(" , ", user.Roles.ToList())</td>
+                    <td>@user.Email</td>
+                    <td>@string.Join(" , ", user.Roles.ToList())</td>
 
-                <td>
-                        <a class="btn btn-primary" asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@user.UserId">Управление ролями</a>
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>
+                    <td>
+                            <a class="btn btn-primary" asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@user.UserId">Управление ролями</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

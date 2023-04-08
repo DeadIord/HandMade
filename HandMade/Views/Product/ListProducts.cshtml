@@ -8,7 +8,7 @@
     <div class="input-group mb-3" style="margin-right: 10px;">
         <input type="text" name="searchString" class="form-control" placeholder="Поиск">
         <div class="input-group-append">
-            <button class="btn btn-outline-success" type="submit">Поиск</button>
+            <button class="btn btn-dark" type="submit">Поиск</button>
         </div>
     </div>
 
@@ -21,7 +21,7 @@
             }
         </select>
         <div class="input-group-append">
-            <button class="btn btn-outline-success" type="submit">Применить</button>
+            <button class="btn btn-dark" type="submit">Применить</button>
         </div>
     </div>
 </form>
@@ -29,7 +29,7 @@
 @if (Model.Any())
 {
     <a asp-action="AddProducts"
-   class="btn btn-outline-success mb-3" style="width:auto">
+   class="btn btn-dark mb-3" style="width:auto">
         Добавить новый товар
     </a>
 
@@ -49,21 +49,7 @@
                 </div>
                 <div class="card-body" style="padding: 10px 20px 5px 20px;">
                     <h5 class="card-title">@product.NameOfTheProduct</h5>
-                    <div class="accordion">
-                        <div class="card" style="border: none; background: white;">
-                            <div class="card-header" style="background: white; padding: 0rem 0rem;">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link" style="padding: .375rem 0rem;" type="button" data-toggle="collapse" data-target="#collapse@(product.ProductsId)" aria-expanded="false" aria-controls="collapse@(product.ProductsId)">
-                                        Описание
-                                    </button>
-                                </h5>
-                            </div>
-
-                            <div id="collapse@(product.ProductsId)" class="collapse">
-                                <div class="card-body" style="padding: 1.25rem 0rem;">@product.Description</div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">Цена: @product.Price ₽</li>

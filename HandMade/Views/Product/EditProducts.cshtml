@@ -4,6 +4,7 @@
     ViewBag.Title = "Редактирование товара";
     var a = TempData["Categories"];
 }
+<div class="row card" style="padding: 20px 20px 20px 20px;">
 <form asp-action="EditProducts" method="post" enctype="multipart/form-data" asp-controller="Product" asp-route-ProductsId="@Model.ProductsId">
     <div class="form-row">
         <div class="form-group col-md-6">
@@ -61,7 +62,7 @@
     <a asp-action="ListProducts" class="btn btn-outline-secondary">Отмена</a>
 </form>
 
-
+</div>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

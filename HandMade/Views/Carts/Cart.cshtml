@@ -3,77 +3,169 @@
     ViewBag.Title = "Корзина";
 }
 
-<h1>Корзина</h1>
+<style>
+.title{
+    margin-bottom: 5vh;
+}
+.card{
+    margin: auto;
+    max-width: 950px;
+    width: 90%;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 1rem;
+    border: transparent;
+}
+
+.cart{
+    background-color: #fff;
+    padding: 4vh 5vh;
+    border-bottom-left-radius: 1rem;
+    border-top-left-radius: 1rem;
+}
+
+.summary{
+    background-color: #ddd;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    padding: 4vh;
+    color: rgb(65, 65, 65);
+}
+
+.summary .col-2{
+    padding: 0;
+}
+.summary .col-10
+{
+    padding: 0;
+}.row{
+    margin: 0;
+}
+
+.main{
+    margin: 0;
+    padding: 2vh 0;
+    width: 100%;
+}
+.col-2, .col{
+    padding: 0 1vh;
+}
+
+.close{
+    margin-left: auto;
+    font-size: 0.7rem;
+}
+img{
+    width: 3.5rem;
+}
+.back-to-shop{
+    margin-top: 4.5rem;
+}
+h5{
+    margin-top: 4vh;
+}
+
+select{
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    padding: 1.5vh 1vh;
+    margin-bottom: 4vh;
+    outline: none;
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+}
+input{
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    padding: 1vh;
+    margin-bottom: 4vh;
+    outline: none;
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+}
+input:focus::-webkit-input-placeholder
+{
+      color:transparent;
+}
+.btnn{
+    background-color: #000;
+    border-color: #000;
+    color: white;
+    width: 100%;
+    text-align:center;
+    margin-top: 4vh;
+    padding: 1vh;
+    border-radius: 0;
+}
+
+        .btnn:focus {
+    box-shadow: none;
+    outline: none;
+    box-shadow: none;
+    color: white;
+    -webkit-box-shadow: none;
+    -webkit-user-select: none;
+    transition: none; 
+}
+
+        .btnn:hover {
+    color: white;
+}
+
+ #code{
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 0.253) , rgba(255, 255, 255, 0.185)), url("https://img.icons8.com/small/16/000000/long-arrow-right.png");
+    background-repeat: no-repeat;
+    background-position-x: 95%;
+    background-position-y: center;
+}</style>
 
 @if (Model != null && Model.Any())
 {
-    <div class="d-flex justify-content-end mb-3">
-        <a asp-controller="Orders" asp-action="Create" class="btn btn-primary">Оформить заказ</a>
 
-    </div>
+    <div class="card" style="padding-bottom: 30px;">
+                <div class="col-md-18 cart">
+                    <div class="title">
 
-    @foreach (var item in Model)
-    {
-        <div class="card mb-3">
-            <div class="row no-gutters">
-                <div class="col-md-4">
-                    @if (item.Products.ImageProduct != null)
-                    {
-                        <img style="width:310px;height:250px; object-fit:cover" src="@($"data:{item.Products.ImageProduct};base64,{Convert.ToBase64String(item.Products.ImageProduct)}")" />
-                    }
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <div class="col-md-8">
-                            <h5 class="card-title">Название: @item.Products.NameOfTheProduct</h5>
-                            <h5 class="card-title">Цена: @item.Products.Price ₽</h5>
-                            <h5 class="card-title">Количество: @item.Quantity</h5>
+                        <div class="row">
+                            <div class="col"><h4><b>Корзина покупок</b></h4></div>
+                        <div class="col align-self-center text-right text-muted">Итого: @Model.Sum(item => item.Products.Price * item.Quantity)</div>
                         </div>
-                        <p class="card-text">
-                            <div class="card-body" style="padding: 1px;">
-                                <div class="accordion">
-                                    <div class="card" style="border: none; background: white; padding: 1px;">
-                                        <div class="card-header" style="background: white; padding: 1px;">
-                                            <h5 class="mb-0">
-                                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse@(item.Products.ProductsId)" aria-expanded="false" aria-controls="collapse@(item.Products.ProductsId)">
-                                                    Описание
-                                                </button>
-                                            </h5>
-                                        </div>
-                                        <div id="collapse@(item.Products.ProductsId)" class="collapse">
-                                            <div class="card-body" style="padding: 1.25rem 0rem;">@item.Products.Description</div>
-                                        </div>
-                                    </div>
-                                </div>
+                    </div>    
+                    
+                    @foreach (var item in Model)
+                        {
+                      <div class="row border-top border-bottom">
+                        <div class="row main align-items-center">
+                            <div class="col-2">
+                                @if (item.Products.ImageProduct != null)
+                                {
+                                    <img class="img-fluid" style="" src="@($"data:{item.Products.ImageProduct};base64,{Convert.ToBase64String(item.Products.ImageProduct)}")" />
+                                }
                             </div>
-                        </p>
-                        <div class="col-md-5">
-                            <form asp-action="Delete" asp-route-CartsId="@item.CartsId" method="post">
-                                <button type="submit" class="btn btn-outline-danger"
-                              >
-                                    Удаление
-                                </button>
-                            </form>
+                            <div class="col">
+                                <div class="row">@item.Products.NameOfTheProduct</div>
+                            </div>
+                            <div class="col">
+                                @item.Quantity
+                            </div>
+                        <div class="col">
+                            ₽
+                                @item.Products.Price 
+                            </div>
+                            
+                                <span class="close">
+                                    <form asp-action="Delete" asp-route-CartsId="@item.CartsId" method="post">
+                                        <button type="submit" class="btn btn-outline-danger">
+                                            Удаление
+                                        </button>
+                                    </form>
+                                </span>
+
                         </div>
+                        
                     </div>
+                    }
+
                 </div>
-            </div>
-        </div>
-
-
-
-    }
-    <table>
-        <tfoot>
-            <tr>
-                <td colspan="4">Итого:</td>
-                <td colspan="2">
-                    <strong>@Model.Sum(item => item.Products.Price * item.Quantity)</strong>
-                </td>
-            </tr>
-        </tfoot>
-
-    </table>
+                <a asp-controller="Orders" asp-action="Create" class="btnn">Оформить заказ</a>
+        </div> 
 }
 else
 {

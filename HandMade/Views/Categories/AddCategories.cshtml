@@ -3,6 +3,7 @@
     ViewBag.Title = "Добавление категории";
 }
 
+<div class="row card"style="padding: 10px 10px 10px 10px">
 <form asp-action="AddCategories" asp-controller="Categories">
     <div class="form-group">
         <label asp-for="NameOfTheCategories">Категория</label>
@@ -18,9 +19,10 @@
         <span asp-validation-for="ActiveCategories" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-outline-primary">Создать</button>
-    <a asp-action="ListCategories" class="btn btn-outline-secondary">Отмена</a>
+        <button type="submit" class="btn btn-dark">Создать</button>
+        <a asp-action="ListCategories" class="btn btn-dark">Отмена</a>
 </form>
+</div>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

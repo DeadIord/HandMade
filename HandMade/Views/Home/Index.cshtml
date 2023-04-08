@@ -6,80 +6,106 @@
     ViewBag.Title = "Продукты";
     var a = TempData["Categories"];
 }
-<form class="form-inline" method="get">
-    <div class="input-group mb-3" style="margin-right: 10px;">
-        <input type="text" name="searchString" class="form-control" placeholder="Поиск">
-        <div class="input-group-append">
-            <button class="btn btn-outline-success" type="submit">Поиск</button>
-        </div>
-    </div>
+<link rel="stylesheet" href="~/css/cards.css" />
 
-    <div class="input-group mb-3" style="margin-right: 10px;">
-        <select class="custom-select" name="filter" style="width: 200px;">
-            <option value="">Все</option>
-            @foreach (var item in (List<ProductController.SelectOptions>)a)
-            {
-                <option value="@item.text">@item.text</option>
-            }
-        </select>
-        <div class="input-group-append">
-            <button class="btn btn-outline-success" type="submit">Применить</button>
+<form class="form-inline" style="padding-top: 20px; display: block;" method="get">
+        <div class="input-group mb-3" style="margin-right: 10px;">
+            <input type="text" name="searchString" class="form-control input-lg" placeholder="Поиск">
+        <div class="input-group-append" >
+            <button style="color: #ffffff; margin-top: 0px;" class="btn cart px-auto" type="submit">Поиск</button>
         </div>
-    </div>
+        </div>
 </form>
 
 @if (Model.Any())
 {
-   
 
-    <div class="row flex-row flex-wrap">
+    <h1>Кофе</h1>
+
+    <hr/>
+
+    <form class="form-inline" style="flex-direction: row-reverse" method="get">
+        <div class="input-group mb-3 col-sm-7 col-md-5 col-lg-4 col-12 sort" style="margin-right: 10px;">
+            <select class="custom-select" name="filter" style="width: 200px;">
+                <option value="">Все</option>
+                @foreach (var item in (List<ProductController.SelectOptions>)a)
+                {
+                    <option value="@item.text">@item.text</option>
+                }
+            </select>
+            <div class="input-group-append">
+                <button style="color: #ffffff; margin-top: 0px;" class="btn cart px-auto" type="submit">Применить</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="row flex-row flex-wrap" style="display: flex; justify-content: center;">
+
         @foreach (var product in Model)
         {
-            <div class="card" style="width: 18rem; margin: 10px;">
-                <div>
-                    @if (product.ImageProduct != null)
-                    {
-                        <img style="width: 18rem;height: 250px;object-fit: cover;padding: 3px 5px 9px 3px;" src="@($"data:{product.ImageProduct};base64,{Convert.ToBase64String(product.ImageProduct)}")" />
-                    }
-                    else
-                    {
-                        <img style="width: 18rem;height: 250px;object-fit: cover;padding: 3px 5px 9px 3px;" src="../imgnone.png" />
-                    }
-                </div>
-                <div class="card-body" style="padding: 10px 20px 5px 20px;">
-                    <h5 class="card-title">@product.NameOfTheProduct</h5>
-                    <div class="accordion">
-                        <div class="card" style="border: none; background: white;">
-                            <div class="card-header" style="background: white; padding: 0rem 0rem;">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link" style="padding: .375rem 0rem;" type="button" data-toggle="collapse" data-target="#collapse@(product.ProductsId)" aria-expanded="false" aria-controls="collapse@(product.ProductsId)">
-                                        Описание
-                                    </button>
-                                </h5>
-                            </div>
+            <div class="card col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                @if (product.ImageProduct != null)
+                {
+                    <img style="width: auto;height: auto;object-fit: cover;padding: 3px 5px 9px 3px;" src="@($"data:{product.ImageProduct};base64,{Convert.ToBase64String(product.ImageProduct)}")" />
+                }
+                else
+                {
+                    <img style="width: auto;height: auto;object-fit: cover;padding: 3px 5px 9px 3px;" src="../imgnone.png" />
+                }
+                <div class="card-body text-center mx-auto">
+                    <div class='cvp' style="display: contents;">
+                        <h5 class="card-title font-weight-bold">@product.NameOfTheProduct</h5>
+                        <p class="card-text">₽ @product.Price</p>
 
-                            <div id="collapse@(product.ProductsId)" class="collapse">
-                                <div class="card-body" style="padding: 1.25rem 0rem;">@product.Description</div>
-                            </div>
+                        <button type="button" class="btn details px-auto" data-toggle="modal" data-target="#productModal@(product.ProductsId)">
+                                Подробнее
+                            </button>
+                        <div class="btn cart px-auto">
+                            @if (signInManager.IsSignedIn(User))
+                            {
+                                <a style="color: #ffffff;" href="@Url.RouteUrl("add-to-cart", new { id = product.ProductsId })">Добавить в корзину</a>
+                            }
+                            else
+                            {
+                                <a style="color: #ffffff;" href="/Identity/Account/Login">Добавить в корзину</a>
+                            }
+
                         </div>
                     </div>
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Цена: @product.Price ₽</li>
-                </ul>
-                <div class="card-body">
-                    @if (signInManager.IsSignedIn(User))
-                    {
-                        <a href="@Url.RouteUrl("add-to-cart", new { id = product.ProductsId })" class="btn btn-primary">Добавить в корзину</a>
-                    }
-                    else
-                    {
-                        <a href="/Identity/Account/Login" class="btn btn-primary">Добавить в корзину</a>
-                    }
-                </div>
             </div>
+
+        <div class="modal fade" id="productModal@(product.ProductsId)" tabindex="-1" role="dialog" aria-labelledby="productModalLabel@(product.ProductsId)" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productModalLabel@(product.ProductsId)">@product.NameOfTheProduct</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>@product.Description</p>
+                                <p>Цена: @product.Price ₽</p>
+                                <p>Количество: @product.Quantity</p>
+                              
+                            </div>
+                            <div class="modal-footer">
+                                @if (signInManager.IsSignedIn(User))
+                                {
+                                    <a style="color: #ffffff;" href="@Url.RouteUrl("add-to-cart", new { id = product.ProductsId })" class="btn cart px-auto">Добавить в корзину</a>
+                                }
+                                else
+                                {
+                                    <a style="color: #ffffff;" href="/Identity/Account/Login" class="btn cart px-auto">Добавить в корзину</a>
+                                }
+                            </div>
+                        </div>
+            </div>
+        </div>
         }
     </div>
+
 
 }
 else

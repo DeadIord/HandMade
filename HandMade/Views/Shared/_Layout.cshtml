@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+<body style="background: #d7d7d7">
+    <header >
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background: #d7d7d7">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">HandMade</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -29,7 +29,7 @@
                                 <a class="nav-link dropdown-toggle" style="color: rgba(0,0,0,.7);" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Админ панель
                                 </a>
-                                <div class="dropdown-menu" style="background: linear-gradient(45deg, #e0e1fb, #dfe4fa); border: none" aria-labelledby="navbarDropMenuLink">
+                                <div class="dropdown-menu" style=" border: none" aria-labelledby="navbarDropMenuLink">
 
                                     <a class="dropdown-item" asp-controller="UserRoles" asp-action="Index">Управление ролями </a>
                                     <a class="dropdown-item" asp-controller="Categories" asp-action="ListCategories">Категории </a>
@@ -38,18 +38,27 @@
                                 </div>
                             </li>
                         }
+                        
+
                         @if (signInManager.IsSignedIn(User) && User.IsInRole("Guest") || User.IsInRole("Admin"))
                         {
                             <li>
                                 <a class="nav-link text-dark" asp-controller="Carts" asp-action="Cart">Корзина </a>
                             </li>
                         }
+                        
                     </ul>
+
+                    
+
                     <partial name="_LoginPartial" />
+
+
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -58,7 +67,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - Сделано при поддерже Праительства Москвы и Департамента экономической политики и развития города Москвы
+            &copy; 2023
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
